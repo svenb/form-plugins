@@ -3,50 +3,23 @@
     This PlugIn can be used to show videos on the form plugin
 */
 
-import { html,LitElement} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
-
+import { html, LitElement} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
+import {config} from './starter-kit-mediaplayer.config';
 
 // define the component
 export class MediaPlayerPlugIn extends LitElement {
   
   static properties = {
     videosrc: {type: String}, 
-    Platform: {type: String}   
+    Platform: {type: String},   
   };
-  
-  // return a promise for contract changes.
-  static getMetaConfig() {
-    return {
-      controlName: 'Media Player',
-      fallbackDisableSubmit: false,
-      groupName: 'Media Player',
-      version: '1.2',
-      properties: {
-        videosrc: {
-          type: 'string',
-          title: 'Media Source',
-          description: 'Youtube embeded link'
-        },       
-        Platform: {
-          title: 'Platform',
-          type: 'string',
-        	enum: ['YouTube', 'Vimeo'],
-          showAsRadio: false,
-          verticalLayout: true,
-          defaultValue: 'YouTube',
-          description: 'Choose your Platform (YouTube is supported'
-        }         
-        
-      }
-    };
-  }
 
+  // return a promise for contract changes.
+  static getMetaConfig = () => config;
 
   checkAdress() {
-     console.log("ha" + this.videosrc);   
-     console.log(this.Platform);
+     
      if(this.videosrc) {
-         
       
       return html`
                 
@@ -60,22 +33,18 @@ export class MediaPlayerPlugIn extends LitElement {
 
       `;
     
-    }
-    else {      
+    } else {      
       return html`
         <p>Bitte geben Sie ein Video ein / Please enter a source </p>  
       `;   
     }
   }     
   
-
-  
   constructor() {
     super();
     this.checkAdress(); 
     
   }
-
 
   headerTemplate() {
     return html` <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css">
@@ -88,12 +57,8 @@ export class MediaPlayerPlugIn extends LitElement {
   footerTemplate() {
     return html` </div> `;
   }
-  
-
-  
 
   render() {        
-
     
     return html`       
         
@@ -109,5 +74,5 @@ export class MediaPlayerPlugIn extends LitElement {
 }
 
 // registering the web component
-const elementName = 'mediaplayer-plugin';
+const elementName = 'starter-kit-mediaplayer';
 customElements.define(elementName, MediaPlayerPlugIn);
