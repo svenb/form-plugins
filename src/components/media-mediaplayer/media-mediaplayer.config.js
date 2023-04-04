@@ -1,7 +1,7 @@
 export const config = {
-    controlName: 'Media Player',
+    controlName: 'media-mediaplayer',
       fallbackDisableSubmit: false,
-      groupName: 'Starter Kit',
+      groupName: 'Media',
       version: '1.2',
       properties: {
         videosrc: {

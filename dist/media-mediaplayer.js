@@ -4,7 +4,7 @@
 */
 
 import { html, LitElement} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
-import {config} from './starter-kit-mediaplayer.config';
+import {config} from './media-mediaplayer.config';
 
 // define the component
 export class MediaPlayerPlugIn extends LitElement {

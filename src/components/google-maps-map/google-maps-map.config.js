@@ -1,8 +1,8 @@
 
 export const config = {
-    controlName: 'Maps Canvas',
+    controlName: 'google-maps-map',
       fallbackDisableSubmit: false,
-      groupName: 'Starter Kit',
+      groupName: 'Google Maps',
       version: '1.2',
       pluginAuthor: 'Sven Berling',
       properties: {
