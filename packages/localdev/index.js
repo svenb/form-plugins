@@ -18,6 +18,7 @@ const app = express();
 
 app.use((req, res, next) => {
         res.set("Access-Control-Allow-Private-Network", "true");
+        res.set("NODE_TLS_REJECT_UNAUTHORIZED", "0");
         next();
     })
     .use(cors())
