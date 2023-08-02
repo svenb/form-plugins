@@ -477,6 +477,57 @@ function _arrayLikeToArray(arr, len) {
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
+function _createForOfIteratorHelper(o, allowArrayLike) {
+  var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
+  if (!it) {
+    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+      if (it) o = it;
+      var i = 0;
+      var F = function () {};
+      return {
+        s: F,
+        n: function () {
+          if (i >= o.length) return {
+            done: true
+          };
+          return {
+            done: false,
+            value: o[i++]
+          };
+        },
+        e: function (e) {
+          throw e;
+        },
+        f: F
+      };
+    }
+    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+  var normalCompletion = true,
+    didErr = false,
+    err;
+  return {
+    s: function () {
+      it = it.call(o);
+    },
+    n: function () {
+      var step = it.next();
+      normalCompletion = step.done;
+      return step;
+    },
+    e: function (e) {
+      didErr = true;
+      err = e;
+    },
+    f: function () {
+      try {
+        if (!normalCompletion && it.return != null) it.return();
+      } finally {
+        if (didErr) throw err;
+      }
+    }
+  };
+}
 function _toPrimitive(input, hint) {
   if (typeof input !== "object" || input === null) return input;
   var prim = input[Symbol.toPrimitive];
@@ -871,5 +922,5 @@ const e=e=>n=>"function"==typeof n?((e,n)=>(customElements.define(e,n),n))(e,n):
  * SPDX-License-Identifier: BSD-3-Clause
  */var n;null!=(null===(n=window.HTMLSlotElement)||void 0===n?void 0:n.prototype.assignedElements)?(o,n)=>o.assignedElements(n):(o,n)=>o.assignedNodes(n).filter((o=>o.nodeType===Node.ELEMENT_NODE));
 
-export { _decorate as _, _taggedTemplateLiteral as a, _inherits as b, _createSuper as c, _createClass as d, e, _classCallCheck as f, _assertThisInitialized as g, _asyncToGenerator as h, i$1 as i, _regeneratorRuntime as j, _get as k, _getPrototypeOf as l, s, x };
-//# sourceMappingURL=query-assigned-elements-6eb0eb3e.js.map
+export { _decorate as _, _taggedTemplateLiteral as a, _get as b, _getPrototypeOf as c, _inherits as d, e, _createSuper as f, _createClass as g, _createForOfIteratorHelper as h, i$1 as i, _classCallCheck as j, _assertThisInitialized as k, _asyncToGenerator as l, _regeneratorRuntime as m, s, x };
+//# sourceMappingURL=query-assigned-elements-f61280a9.js.map

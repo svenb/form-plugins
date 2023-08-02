@@ -1,18 +1,12 @@
 import { PluginContract } from '@nintex/form-plugin-contract';
 
 export const config: PluginContract = {
-  controlName: 'user-peoplepicker',
+  controlName: 'fun-confetti',
   fallbackDisableSubmit: false,
-  description: 'Universal People Picker',
-  groupName: 'User',
+  description: 'Bring Confetti to your Live',
+  groupName: 'Func',
   version: '1.0',
-  properties: {
-    UserJson: {
-      type: 'string',
-      title: 'User Json',
-      description: 'User Json',
-    },
-  },
+  properties: {},
   standardProperties: {
     fieldLabel: false,
     description: false,

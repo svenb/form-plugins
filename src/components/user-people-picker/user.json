@@ -8,10 +8,17 @@
     "id": 2,
     "name": "Jane Smith",
     "email": "jane.smith@example.com"
-  },
-  {
-    "id": 3,
-    "name": "Robert Johnson",
-    "email": "robert.johnson@example.com"
   }
 ]
+
+
+
+<div>
+        <select>
+          ${this.users.map(
+            user => html`
+              <option value="${user.id}">${user.name}</option>
+            `
+          )}
+        </select>
+      </div> 

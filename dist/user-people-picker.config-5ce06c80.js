@@ -1,6 +1,4 @@
-import { PluginContract } from '@nintex/form-plugin-contract';
-
-export const config: PluginContract = {
+var config = {
   controlName: 'user-peoplepicker',
   fallbackDisableSubmit: false,
   description: 'Universal People Picker',
@@ -10,13 +8,16 @@ export const config: PluginContract = {
     UserJson: {
       type: 'string',
       title: 'User Json',
-      description: 'User Json',
-    },
+      description: 'User Json'
+    }
   },
   standardProperties: {
     fieldLabel: false,
     description: false,
     defaultValue: false,
-    readOnly: false,
-  },
+    readOnly: false
+  }
 };
+
+export { config };
+//# sourceMappingURL=user-people-picker.config-5ce06c80.js.map

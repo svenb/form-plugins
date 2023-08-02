@@ -1,22 +1,8 @@
-import { _ as _decorate, s, i, a as _taggedTemplateLiteral, x, e, b as _inherits, c as _createSuper, d as _createClass, f as _classCallCheck, g as _assertThisInitialized, h as _asyncToGenerator, j as _regeneratorRuntime, k as _get, l as _getPrototypeOf } from './query-assigned-elements-6eb0eb3e.js';
+import { _ as _decorate, s, i, a as _taggedTemplateLiteral, x, b as _get, c as _getPrototypeOf, e as e$1, d as _inherits, f as _createSuper, g as _createClass, j as _classCallCheck, k as _assertThisInitialized } from './query-assigned-elements-f61280a9.js';
+import { e } from './property-3bc85059.js';
 
-var config = {
-  controlName: 'user-peoplepicker',
-  fallbackDisableSubmit: false,
-  description: 'Universal People Picker',
-  groupName: 'User',
-  version: '1.0',
-  properties: {},
-  standardProperties: {
-    fieldLabel: false,
-    description: false,
-    defaultValue: false,
-    readOnly: false
-  }
-};
-
-var _templateObject, _templateObject2, _templateObject3;
-var UserPicker = _decorate([e('user-peoplepicker')], function (_initialize, _LitElement) {
+var _templateObject, _templateObject2, _templateObject3, _templateObject4;
+var UserPicker = _decorate([e$1('user-peoplepicker')], function (_initialize, _LitElement) {
   var UserPicker = /*#__PURE__*/function (_LitElement2) {
     _inherits(UserPicker, _LitElement2);
     var _super = _createSuper(UserPicker);
@@ -36,91 +22,110 @@ var UserPicker = _decorate([e('user-peoplepicker')], function (_initialize, _Lit
     F: UserPicker,
     d: [{
       kind: "field",
+      decorators: [e({
+        type: String
+      })],
+      key: "UserJson",
+      value: function value() {
+        return '[{"id": 1,"name": "John Doe","email": "john.doe@example.com"},{"id": 2,"name": "Jane Smith","email": "jane.smith@example.com"}]';
+      }
+    }, {
+      kind: "method",
       "static": true,
       key: "getMetaConfig",
-      value: function value() {
-        return function () {
-          return config;
-        };
+      value: function getMetaConfig() {
+        return import('./user-people-picker.config-5ce06c80.js').then(function (pkg) {
+          return pkg.config;
+        });
       }
     }, {
       kind: "field",
       "static": true,
       key: "styles",
       value: function value() {
-        return i(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    /* Add your component styles here */\n  "])));
+        return i(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .people-picker {\n      position: relative;\n      display: inline-block;\n      width: 200px;\n    }\n\n    .people-picker-input {\n      width: 100%;\n      padding: 5px;\n    }\n\n    .people-picker-results {\n      position: absolute;\n      top: 100%;\n      left: 0;\n      width: 100%;\n      background-color: #fff;\n      border: 1px solid #ccc;\n      max-height: 150px;\n      overflow-y: auto;\n      padding: 5px;\n    }\n\n    .people-picker-results ul {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n    }\n\n    .people-picker-results li {\n      cursor: pointer;\n      padding: 5px;\n    }\n\n    .people-picker-results li:hover {\n      background-color: #f0f0f0;\n    }\n  "])));
       }
     }, {
       kind: "field",
-      key: "users",
+      key: "searchTerm",
+      value: function value() {
+        return '';
+      }
+    }, {
+      kind: "field",
+      key: "results",
       value: function value() {
         return [];
       }
     }, {
-      kind: "method",
-      key: "connectedCallback",
-      value: function () {
-        var _connectedCallback = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-          return _regeneratorRuntime().wrap(function _callee$(_context) {
-            while (1) switch (_context.prev = _context.next) {
-              case 0:
-                _get(_getPrototypeOf(UserPicker.prototype), "connectedCallback", this).call(this);
-                _context.next = 3;
-                return this.fetchUsers();
-              case 3:
-              case "end":
-                return _context.stop();
-            }
-          }, _callee, this);
-        }));
-        function connectedCallback() {
-          return _connectedCallback.apply(this, arguments);
-        }
-        return connectedCallback;
-      }()
-    }, {
-      kind: "method",
-      key: "fetchUsers",
-      value: function () {
-        var _fetchUsers = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-          var response;
-          return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-            while (1) switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
-                return fetch('./user.json');
-              case 3:
-                response = _context2.sent;
-                _context2.next = 6;
-                return response.json();
-              case 6:
-                this.users = _context2.sent;
-                console.log(this.users);
-                _context2.next = 13;
-                break;
-              case 10:
-                _context2.prev = 10;
-                _context2.t0 = _context2["catch"](0);
-                console.error('Error fetching users:', _context2.t0);
-              case 13:
-              case "end":
-                return _context2.stop();
-            }
-          }, _callee2, this, [[0, 10]]);
-        }));
-        function fetchUsers() {
-          return _fetchUsers.apply(this, arguments);
-        }
-        return fetchUsers;
-      }()
+      kind: "field",
+      key: "showResults",
+      value: function value() {
+        return false;
+      }
     }, {
       kind: "method",
       key: "render",
       value: function render() {
-        return x(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n      <div>\n        <select>\n          ", "\n        </select>\n      </div>\n    "])), this.users.map(function (user) {
-          return x(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n              <option value=\"", "\">", "</option>\n            "])), user.id, user.name);
-        }));
+        var _this2 = this;
+        return x(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n      <div class=\"people-picker\">\n        <input type=\"text\" class=\"people-picker-input\" placeholder=\"Enter a name or email\" .value=\"", "\" @input=\"", "\" />\n        ", "\n      </div>\n    "])), this.searchTerm, this.handleInputChange, this.showResults ? x(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n              <div class=\"people-picker-results\">\n                <ul>\n                  ", "\n                </ul>\n              </div>\n            "])), this.results.map(function (result) {
+          return x(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral([" <li @click=\"", "\">", "</li> "])), function () {
+            return _this2.handleResultClick(result);
+          }, result);
+        })) : '');
+      }
+    }, {
+      kind: "method",
+      key: "handleInputChange",
+      value: function handleInputChange(event) {
+        var input = event.target;
+        this.searchTerm = input.value.trim().toLowerCase();
+        this.results = this.getResults(this.searchTerm);
+        this.showResults = this.results.length > 0;
+        this.requestUpdate();
+      }
+    }, {
+      kind: "method",
+      key: "getResults",
+      value: function getResults(searchTerm) {
+        // Führen Sie Ihre Such- oder Filterlogik hier aus
+        var allResults = ['John Doe', 'Jane Smith', 'Robert Johnson', 'Sarah Williams', 'Michael Brown'];
+        return allResults.filter(function (result) {
+          return result.toLowerCase().includes(searchTerm);
+        });
+      }
+    }, {
+      kind: "method",
+      key: "handleResultClick",
+      value: function handleResultClick(result) {
+        var input = this.shadowRoot.querySelector('.people-picker-input');
+        input.value = result;
+        this.showResults = false;
+        this.requestUpdate();
+      }
+    }, {
+      kind: "method",
+      key: "clickOutsideHandler",
+      value: function clickOutsideHandler(event) {
+        var target = event.target;
+        if (!this.contains(target)) {
+          this.showResults = false;
+          this.requestUpdate();
+        }
+      }
+    }, {
+      kind: "method",
+      key: "connectedCallback",
+      value: function connectedCallback() {
+        _get(_getPrototypeOf(UserPicker.prototype), "connectedCallback", this).call(this);
+        document.addEventListener('click', this.clickOutsideHandler.bind(this));
+      }
+    }, {
+      kind: "method",
+      key: "disconnectedCallback",
+      value: function disconnectedCallback() {
+        _get(_getPrototypeOf(UserPicker.prototype), "disconnectedCallback", this).call(this);
+        document.removeEventListener('click', this.clickOutsideHandler.bind(this));
       }
     }]
   };

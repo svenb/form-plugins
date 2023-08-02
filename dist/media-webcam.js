@@ -1,4 +1,4 @@
-import { _ as _decorate, s, x, a as _taggedTemplateLiteral, e, b as _inherits, c as _createSuper, d as _createClass, f as _classCallCheck, g as _assertThisInitialized } from './query-assigned-elements-6eb0eb3e.js';
+import { _ as _decorate, s, x, a as _taggedTemplateLiteral, e, d as _inherits, f as _createSuper, g as _createClass, j as _classCallCheck, k as _assertThisInitialized } from './query-assigned-elements-f61280a9.js';
 
 var config = {
   controlName: 'media-webcam',

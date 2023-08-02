@@ -1,16 +1,16 @@
 import { PluginContract } from '@nintex/form-plugin-contract';
 
 export const config: PluginContract = {
-  controlName: 'user-peoplepicker',
+  controlName: 'Dynamic Checkbox',
   fallbackDisableSubmit: false,
-  description: 'Universal People Picker',
-  groupName: 'User',
+  description: 'Load External Data and create Checkboxs',
+  groupName: 'UI',
   version: '1.0',
   properties: {
     UserJson: {
       type: 'string',
-      title: 'User Json',
-      description: 'User Json',
+      title: 'Data Variable',
+      description: 'Data Variable',
     },
   },
   standardProperties: {
