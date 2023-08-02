@@ -4,7 +4,6 @@
 */
 
 import { html, LitElement} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
-import {config} from './media-mediaplayer.config';
 
 // define the component
 export class MediaPlayerPlugIn extends LitElement {
@@ -15,7 +14,31 @@ export class MediaPlayerPlugIn extends LitElement {
   };
 
   // return a promise for contract changes.
-  static getMetaConfig = () => config;
+  static getMetaConfig = () => {       
+    return{
+      controlName: 'media-mediaplayer',
+      fallbackDisableSubmit: false,
+      groupName: 'Media',
+      version: '1.2',
+      properties: {
+        videosrc: {
+          type: 'string',
+          title: 'Media Source',
+          description: 'Importend Youtube embeded link is needed (e.g https://www.youtube.com/embed/vpKcM4MxPzc)',
+        },       
+        Platform: {
+          title: 'Platform',
+          type: 'string',
+        	enum: ['YouTube', 'Vimeo'],
+          showAsRadio: false,
+          verticalLayout: true,
+          defaultValue: 'YouTube',
+          description: 'Choose your Platform (YouTube is supported)',
+        },         
+        
+      },
+      }
+    };
 
   checkAdress() {
      
