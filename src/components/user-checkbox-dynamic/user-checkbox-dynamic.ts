@@ -1,26 +1,17 @@
 import { PluginContract } from '@nintex/form-plugin-contract';
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { config } from './user-checkbox-dynamic.config';
 
+/*interface Checkbox {
+  [key: string]: unknown;
+}*/
 @customElement('user-checkbox-dynamic')
-
-interface Checkbox {
-  id: string;
-  label: string;
-  checked: boolean;
-}
-
 export class CustomCheckbox extends LitElement {
+  static getMetaConfig = (): Promise<PluginContract> | PluginContract => config;
 
-    
   @property({ type: String })
-  UserJson = '[{"id": 1,"name": "John Doe","email": "john.doe@example.com"},{"id": 2,"name": "Jane Smith","email": "jane.smith@example.com"}]';
-  
-  static getMetaConfig(): Promise<PluginContract> | PluginContract {
-    return import('./user-checkbox-dynamic.config.ts').then((pkg) => {
-      return pkg.config;
-    });
-  }
+  DynamicCheckBoxVal = '[{"Name":"Rückmeldung","anzeige":true,"ID":1}]';
 
   static styles = css`
     .checkbox-container {
@@ -43,7 +34,12 @@ export class CustomCheckbox extends LitElement {
     }
   `;
 
-  private checkboxes: Checkbox[] = [];
+  /* private checkboxes: Checkbox[] = [
+    { id: 'checkbox1', label: 'Checkbox 1', checked: true },
+    { id: 'checkbox2', label: 'Checkbox 2', checked: false },
+    { id: 'checkbox3', label: 'Checkbox 3', checked: true },
+  ];
+  */
 
   constructor() {
     super();
@@ -52,16 +48,20 @@ export class CustomCheckbox extends LitElement {
 
   private async loadCheckboxes() {
     try {
-      const response = await fetch('/checkboxes.json'); // Adjust the path if needed
-      this.checkboxes = await response.json();
+      let DynamicCheboxJson = await JSON.parse(this.DynamicCheckBoxVal);
+      console.log(DynamicCheboxJson);
+      // const response = await fetch('/checkboxes.json'); // Adjust the path if needed
+      // this.checkboxes = await response.json();
       this.requestUpdate();
     } catch (error) {
       console.error('Error loading checkboxes:', error);
+      console.error(this.DynamicCheckBoxVal);
     }
   }
 
   render() {
     return html`
+      ${this.DynamicCheckBoxVal}
       <div class="checkbox-container">
         ${this.checkboxes.map(
           (checkbox) => html`
@@ -75,5 +75,3 @@ export class CustomCheckbox extends LitElement {
     `;
   }
 }
-
-customElements.define('custom-checkbox', CustomCheckbox);

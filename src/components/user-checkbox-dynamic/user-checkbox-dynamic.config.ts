@@ -7,10 +7,15 @@ export const config: PluginContract = {
   groupName: 'UI',
   version: '1.0',
   properties: {
-    UserJson: {
+    DynamicCheckBoxVal: {
       type: 'string',
       title: 'Data Variable',
       description: 'Data Variable',
+    },
+    DataStructure: {
+      type: 'string',
+      title: 'Data Structure',
+      description: 'Data Structure',
     },
   },
   standardProperties: {
