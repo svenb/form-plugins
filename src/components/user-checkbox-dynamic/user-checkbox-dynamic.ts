@@ -10,10 +10,10 @@ interface DynamicJson {
 @customElement('user-checkbox-dynamic')
 export class CustomCheckbox extends LitElement {
   @property({ type: String })
-  DynamicCheckBoxVal!: string;
+  data!: string;
 
   @property({ type: String })
-  DataStructure!: string;
+  columnName!: string;
 
   static getMetaConfig = (): Promise<PluginContract> | PluginContract => config;
 
@@ -38,31 +38,35 @@ export class CustomCheckbox extends LitElement {
     }
   `;
 
-  constructor() {
-    super();
-    this.loadCheckboxes();
-  }
-
-  DynamicCheckJson: DynamicJson[] = [];
-
-  loadCheckboxes() {
-    // if (!this.DynamicCheckBoxVal) {
-    //  return;
-    // }
-    try {
-      this.DynamicCheckJson = JSON.parse(this.DynamicCheckBoxVal) as DynamicJson[];
-      this.DynamicCheckJson.forEach((element) => {
-        console.log(element.Name);
-      });
-
-      this.requestUpdate();
-    } catch (error) {
-      console.error('Error loading checkboxes:', error);
-      console.log(this.DynamicCheckBoxVal);
-    }
+  toggleCheckbox(checkbox: DynamicJson) {
+    // checkbox.checked = !checkbox.checked;
+    const args = {
+      bubbles: true,
+      cancelable: false,
+      composed: true,
+      detail: 'laskdjals',
+    };
+    console.log(checkbox.Name);
+    this.requestUpdate();
+    const event = new CustomEvent('ntx-value-change', args);
+    this.dispatchEvent(event);
+    // this.dispatchEvent(new CustomEvent('change', { detail: this.checkboxes }));
   }
 
   render() {
-    return html` <b>${this.DataStructure}</b> `;
+    const dataAsJson: DynamicJson[] = JSON.parse(this.data) as DynamicJson[];
+    console.log(dataAsJson);
+    return html`
+      <div class="checkbox-container">
+        ${dataAsJson.map(
+          (option) => html`
+            <div class="checkbox-item">
+              <input type="checkbox" id="chb" class="checkbox-input" @change=${() => this.toggleCheckbox(option)} />
+              <label class="checkbox-label" for="${option[this.columnName]}">${option[this.columnName]}</label>
+            </div>
+          `
+        )}
+      </div>
+    `;
   }
 }

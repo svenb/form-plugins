@@ -7,17 +7,22 @@ export const config: PluginContract = {
   groupName: 'UI',
   version: '1.0',
   properties: {
-    DynamicCheckBoxVal: {
+    data: {
       type: 'string',
-      title: 'Data Variable',
-      description: 'Data Variable',
+      title: 'Data',
+      description: 'Select the variable that holds the data for the checkbox',
       required: true,
     },
-    DataStructure: {
+    columnName: {
       type: 'string',
-      title: 'Select column in your Table/DSV/JSON',
-      description: 'Please choose the column, you would like to see as your Checkboxes',
+      title: 'Column Name',
+      description: 'The Name of the column to render as options',
       required: true,
+    },
+    value: {
+      title: 'Value',
+      type: 'string',
+      isValueField: true,
     },
   },
   standardProperties: {
@@ -26,4 +31,5 @@ export const config: PluginContract = {
     defaultValue: false,
     readOnly: false,
   },
+  events: ['ntx-value-change'],
 };

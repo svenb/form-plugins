@@ -8,17 +8,22 @@ var config = {
   groupName: 'UI',
   version: '1.0',
   properties: {
-    DynamicCheckBoxVal: {
+    data: {
       type: 'string',
-      title: 'Data Variable',
-      description: 'Data Variable',
+      title: 'Data',
+      description: 'Select the variable that holds the data for the checkbox',
       required: true
     },
-    DataStructure: {
+    columnName: {
       type: 'string',
-      title: 'Select column in your Table/DSV/JSON',
-      description: 'Please choose the column, you would like to see as your Checkboxes',
+      title: 'Column Name',
+      description: 'The Name of the column to render as options',
       required: true
+    },
+    value: {
+      title: 'Value',
+      type: 'string',
+      isValueField: true
     }
   },
   standardProperties: {
@@ -26,10 +31,11 @@ var config = {
     description: false,
     defaultValue: false,
     readOnly: false
-  }
+  },
+  events: ['ntx-value-change']
 };
 
-var _templateObject, _templateObject2;
+var _templateObject, _templateObject2, _templateObject3;
 var CustomCheckbox = _decorate([e$1('user-checkbox-dynamic')], function (_initialize, _LitElement) {
   var CustomCheckbox = /*#__PURE__*/function (_LitElement2) {
     _inherits(CustomCheckbox, _LitElement2);
@@ -37,9 +43,11 @@ var CustomCheckbox = _decorate([e$1('user-checkbox-dynamic')], function (_initia
     function CustomCheckbox() {
       var _this;
       _classCallCheck(this, CustomCheckbox);
-      _this = _super.call(this);
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+      _this = _super.call.apply(_super, [this].concat(args));
       _initialize(_assertThisInitialized(_this));
-      _this.loadCheckboxes();
       return _this;
     }
     return _createClass(CustomCheckbox);
@@ -51,14 +59,14 @@ var CustomCheckbox = _decorate([e$1('user-checkbox-dynamic')], function (_initia
       decorators: [e({
         type: String
       })],
-      key: "DynamicCheckBoxVal",
+      key: "data",
       value: void 0
     }, {
       kind: "field",
       decorators: [e({
         type: String
       })],
-      key: "DataStructure",
+      key: "columnName",
       value: void 0
     }, {
       kind: "field",
@@ -77,34 +85,34 @@ var CustomCheckbox = _decorate([e$1('user-checkbox-dynamic')], function (_initia
         return i(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .checkbox-container {\n      display: flex;\n      flex-direction: column;\n    }\n\n    .checkbox-item {\n      display: flex;\n      align-items: center;\n      margin-bottom: 5px;\n    }\n\n    .checkbox-input {\n      margin-right: 5px;\n    }\n\n    .checkbox-label {\n      font-size: 14px;\n    }\n  "])));
       }
     }, {
-      kind: "field",
-      key: "DynamicCheckJson",
-      value: function value() {
-        return [];
-      }
-    }, {
       kind: "method",
-      key: "loadCheckboxes",
-      value: function loadCheckboxes() {
-        // if (!this.DynamicCheckBoxVal) {
-        //  return;
-        // }
-        try {
-          this.DynamicCheckJson = JSON.parse(this.DynamicCheckBoxVal);
-          this.DynamicCheckJson.forEach(function (element) {
-            console.log(element.Name);
-          });
-          this.requestUpdate();
-        } catch (error) {
-          console.error('Error loading checkboxes:', error);
-          console.log(this.DynamicCheckBoxVal);
-        }
+      key: "toggleCheckbox",
+      value: function toggleCheckbox(checkbox) {
+        // checkbox.checked = !checkbox.checked;
+        var args = {
+          bubbles: true,
+          cancelable: false,
+          composed: true,
+          detail: 'laskdjals'
+        };
+        console.log(checkbox.Name);
+        this.requestUpdate();
+        var event = new CustomEvent('ntx-value-change', args);
+        this.dispatchEvent(event);
+        // this.dispatchEvent(new CustomEvent('change', { detail: this.checkboxes }));
       }
     }, {
       kind: "method",
       key: "render",
       value: function render() {
-        return x(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <b>", "</b> "])), this.DataStructure);
+        var _this2 = this;
+        var dataAsJson = JSON.parse(this.data);
+        console.log(dataAsJson);
+        return x(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n      <div class=\"checkbox-container\">\n        ", "\n      </div>\n    "])), dataAsJson.map(function (option) {
+          return x(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n            <div class=\"checkbox-item\">\n              <input type=\"checkbox\" id=\"chb\" class=\"checkbox-input\" @change=", " />\n              <label class=\"checkbox-label\" for=\"", "\">", "</label>\n            </div>\n          "])), function () {
+            return _this2.toggleCheckbox(option);
+          }, option[_this2.columnName], option[_this2.columnName]);
+        }));
       }
     }]
   };

@@ -48,7 +48,6 @@ export const config = {
         defaultValue: 'driving',
         description: 'Defines the method of travel. If no mode is specified the Maps Embed API will show one or more of the most relevant modes for the specified route.',
       },
-    
     zoom: {
       title: 'Zoom',
       type: 'string',
@@ -58,6 +57,11 @@ export const config = {
       defaultValue: '11',
       description: 'Values from 0 (the whole world) to 21 (individual buildings). The upper limit may vary depending on the map data for the selected location.',
     },   
+    placeholder: {
+      title: 'Placeholder Text',
+      type: 'string', 
+      description: 'Please enter a placeholder text, which will be shown, if the adresse is empty',
+    },
     
   },
 }
