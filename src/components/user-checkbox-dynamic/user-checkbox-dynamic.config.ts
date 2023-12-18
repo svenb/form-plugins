@@ -7,16 +7,29 @@ export const config: PluginContract = {
   groupName: 'UI',
   version: '1.0',
   properties: {
-    UserJson: {
+    data: {
       type: 'string',
-      title: 'Data Variable',
-      description: 'Data Variable',
+      title: 'Data',
+      description: 'Select the variable that holds the data for the checkbox',
+      required: true,
+    },
+    columnName: {
+      type: 'string',
+      title: 'Column Name',
+      description: 'The Name of the column to render as options',
+      required: true,
+    },
+    value: {
+      title: 'Value',
+      type: 'string',
+      isValueField: true,
     },
   },
   standardProperties: {
-    fieldLabel: false,
+    fieldLabel: true,
     description: false,
     defaultValue: false,
     readOnly: false,
   },
+  events: ['ntx-value-change'],
 };

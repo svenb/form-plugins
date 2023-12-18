@@ -1,26 +1,21 @@
 import { PluginContract } from '@nintex/form-plugin-contract';
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { config } from './user-checkbox-dynamic.config';
 
-@customElement('user-checkbox-dynamic')
-
-interface Checkbox {
-  id: string;
-  label: string;
-  checked: boolean;
+interface DynamicJson {
+  [key: string]: string;
 }
 
+@customElement('user-checkbox-dynamic')
 export class CustomCheckbox extends LitElement {
-
-    
   @property({ type: String })
-  UserJson = '[{"id": 1,"name": "John Doe","email": "john.doe@example.com"},{"id": 2,"name": "Jane Smith","email": "jane.smith@example.com"}]';
-  
-  static getMetaConfig(): Promise<PluginContract> | PluginContract {
-    return import('./user-checkbox-dynamic.config.ts').then((pkg) => {
-      return pkg.config;
-    });
-  }
+  data!: string;
+
+  @property({ type: String })
+  columnName!: string;
+
+  static getMetaConfig = (): Promise<PluginContract> | PluginContract => config;
 
   static styles = css`
     .checkbox-container {
@@ -43,31 +38,31 @@ export class CustomCheckbox extends LitElement {
     }
   `;
 
-  private checkboxes: Checkbox[] = [];
-
-  constructor() {
-    super();
-    this.loadCheckboxes();
-  }
-
-  private async loadCheckboxes() {
-    try {
-      const response = await fetch('/checkboxes.json'); // Adjust the path if needed
-      this.checkboxes = await response.json();
-      this.requestUpdate();
-    } catch (error) {
-      console.error('Error loading checkboxes:', error);
-    }
+  toggleCheckbox(checkbox: DynamicJson) {
+    // checkbox.checked = !checkbox.checked;
+    const args = {
+      bubbles: true,
+      cancelable: false,
+      composed: true,
+      detail: 'laskdjals',
+    };
+    console.log(checkbox.Name);
+    this.requestUpdate();
+    const event = new CustomEvent('ntx-value-change', args);
+    this.dispatchEvent(event);
+    // this.dispatchEvent(new CustomEvent('change', { detail: this.checkboxes }));
   }
 
   render() {
+    const dataAsJson: DynamicJson[] = JSON.parse(this.data) as DynamicJson[];
+    console.log(dataAsJson);
     return html`
       <div class="checkbox-container">
-        ${this.checkboxes.map(
-          (checkbox) => html`
+        ${dataAsJson.map(
+          (option) => html`
             <div class="checkbox-item">
-              <input type="checkbox" class="checkbox-input" id="${checkbox.id}" .checked="${checkbox.checked}" />
-              <label class="checkbox-label" for="${checkbox.id}">${checkbox.label}</label>
+              <input type="checkbox" id="chb" class="checkbox-input" @change=${() => this.toggleCheckbox(option)} />
+              <label class="checkbox-label" for="${option[this.columnName]}">${option[this.columnName]}</label>
             </div>
           `
         )}
@@ -75,5 +70,3 @@ export class CustomCheckbox extends LitElement {
     `;
   }
 }
-
-customElements.define('custom-checkbox', CustomCheckbox);
